@@ -18,6 +18,7 @@ const dashboardRoutes = require('./routes/dashboard');
 const adminRoutes = require('./routes/admin');
 const analyticsRoutes = require('./routes/analytics');
 const iotRoutes = require('./routes/iot');
+const featuresRoutes = require('./routes/features');
 
 const app = express();
 const server = http.createServer(app);
@@ -48,6 +49,7 @@ app.use('/api/dashboard', dashboardRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/analytics', analyticsRoutes);
 app.use('/api/iot', iotRoutes);
+app.use('/api/features', featuresRoutes);
 
 app.use(errorHandler);
 

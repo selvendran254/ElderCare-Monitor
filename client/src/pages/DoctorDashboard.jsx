@@ -11,6 +11,10 @@ import Input, { Select, Textarea } from '../components/ui/Input';
 import Badge, { StatusBadge } from '../components/ui/Badge';
 import { DetailPanel, StatBox, InfoRow } from '../components/ui/DetailPanel';
 import EmptyState from '../components/ui/EmptyState';
+import VideoCall from '../components/features/VideoCall';
+import AIPredictionChart from '../components/features/AIPredictionChart';
+import HospitalIntegration from '../components/features/HospitalIntegration';
+import BlockchainViewer from '../components/features/BlockchainViewer';
 
 export default function DoctorDashboard() {
   const { t } = useI18n();
@@ -34,6 +38,8 @@ export default function DoctorDashboard() {
     { id: 'appointments', label: t('appointments'), icon: '📅', badge: appointments.length },
     { id: 'labs', label: t('labResults'), icon: '🔬' },
     { id: 'charts', label: 'Analytics', icon: '📊' },
+    { id: 'telemedicine', label: t('telemedicine'), icon: '📹' },
+    { id: 'smart', label: t('smartFeatures'), icon: '✨' },
   ];
 
   useEffect(() => {
@@ -257,6 +263,7 @@ export default function DoctorDashboard() {
 
       {selectedPatient && section === 'charts' && (
         <div className="space-y-4">
+          <AIPredictionChart elderId={selectedPatient.id} />
           <div className="content-grid-2">
             {vitals.length > 0 && (
               <>
@@ -269,6 +276,17 @@ export default function DoctorDashboard() {
             {compliance.daily?.length > 0 && <ComplianceChart daily={compliance.daily} />}
             {activities.length > 0 && <ActivityChart activities={activities} />}
           </div>
+        </div>
+      )}
+
+      {selectedPatient && section === 'telemedicine' && (
+        <VideoCall elderId={selectedPatient.id} doctorId={selectedPatient.doctor_id} />
+      )}
+
+      {selectedPatient && section === 'smart' && (
+        <div className="content-grid-2">
+          <HospitalIntegration elderId={selectedPatient.id} />
+          <BlockchainViewer elderId={selectedPatient.id} />
         </div>
       )}
     </Layout>

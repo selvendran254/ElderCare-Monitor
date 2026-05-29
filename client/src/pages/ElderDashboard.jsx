@@ -11,6 +11,7 @@ import Button from '../components/ui/Button';
 import { DetailPanel, StatBox, InfoRow } from '../components/ui/DetailPanel';
 import EmptyState from '../components/ui/EmptyState';
 import { StatusBadge } from '../components/ui/Badge';
+import SmartFeaturesPanel from '../components/features/SmartFeaturesPanel';
 
 export default function ElderDashboard() {
   const { elder, user } = useAuth();
@@ -41,6 +42,7 @@ export default function ElderDashboard() {
     { id: 'activity', label: t('activity'), icon: '🚶' },
     { id: 'appointments', label: t('appointments'), icon: '📅', badge: appointments.length },
     { id: 'charts', label: 'Trends', icon: '📊' },
+    { id: 'smart', label: t('smartFeatures'), icon: '✨' },
   ];
 
   useEffect(() => {
@@ -302,6 +304,10 @@ export default function ElderDashboard() {
             <div className="col-span-full"><ActivityChart activities={activities} /></div>
           )}
         </div>
+      )}
+
+      {section === 'smart' && (
+        <SmartFeaturesPanel elderId={elderId} userPhone={user?.phone} />
       )}
     </Layout>
   );

@@ -8,6 +8,8 @@ import { Select } from '../components/ui/Input';
 import Badge from '../components/ui/Badge';
 import { DetailPanel, InfoRow } from '../components/ui/DetailPanel';
 import EmptyState from '../components/ui/EmptyState';
+import LiveMap from '../components/features/LiveMap';
+import HospitalIntegration from '../components/features/HospitalIntegration';
 
 export default function AdminDashboard() {
   const { t } = useI18n();
@@ -27,6 +29,8 @@ export default function AdminDashboard() {
     { id: 'assignments', label: t('assignments'), icon: '🔗' },
     { id: 'alertRules', label: t('alertRules'), icon: '⚙️' },
     { id: 'auditLogs', label: t('auditLogs'), icon: '📋' },
+    { id: 'integrations', label: t('hospitalIntegration'), icon: '🏥' },
+    { id: 'map', label: t('elderMap'), icon: '📍' },
   ];
 
   useEffect(() => { loadAll(); }, []);
@@ -154,6 +158,12 @@ export default function AdminDashboard() {
           )}
         </div>
       )}
+
+      {section === 'integrations' && elders.length > 0 && (
+        <HospitalIntegration elderId={elders[0].id} />
+      )}
+
+      {section === 'map' && <LiveMap multiElder />}
     </Layout>
   );
 }

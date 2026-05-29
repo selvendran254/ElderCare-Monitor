@@ -14,6 +14,9 @@ import { DetailPanel, StatBox, InfoRow } from '../components/ui/DetailPanel';
 import EmptyState from '../components/ui/EmptyState';
 import AlertBanner from '../components/ui/AlertBanner';
 import ElderSidebarList from '../components/ui/ElderSidebarList';
+import LiveMap from '../components/features/LiveMap';
+import AIPredictionChart from '../components/features/AIPredictionChart';
+import PillBoxStatus from '../components/features/PillBoxStatus';
 
 export default function CaretakerDashboard() {
   const { t } = useI18n();
@@ -41,6 +44,8 @@ export default function CaretakerDashboard() {
     { id: 'alerts', label: t('alerts'), icon: '⚠️', badge: activeAlerts.length },
     { id: 'actions', label: 'Actions', icon: '⚡' },
     { id: 'analytics', label: 'Analytics', icon: '📊' },
+    { id: 'map', label: t('elderMap'), icon: '📍' },
+    { id: 'smart', label: t('smartFeatures'), icon: '✨' },
   ];
 
   const loadElders = useCallback(async () => {
@@ -71,7 +76,9 @@ export default function CaretakerDashboard() {
     socket.on('vitals', onVitals);
     socket.on('alert', onAlert);
     socket.on('sos', onSos);
-    return () => { socket.off('vitals', onVitals); socket.off('alert', onAlert); socket.off('sos', onSos); };
+    socket.on('fall', (ev) => setBannerAlerts((prev) => [{ type: 'emergency', message: `Fall detected! Elder ${ev.elder_id}`, priority: 'sos' }, ...prev]));
+    socket.on('location', () => {});
+    return () => { socket.off('vitals', onVitals); socket.off('alert', onAlert); socket.off('sos', onSos); socket.off('fall'); socket.off('location'); };
   }, [selectedElder]);
 
   useEffect(() => {
@@ -302,6 +309,15 @@ export default function CaretakerDashboard() {
             {compliance.daily?.length > 0 && <ComplianceChart daily={compliance.daily} />}
             {activities.length > 0 && <ActivityChart activities={activities} />}
           </div>
+        </div>
+      )}
+
+      {section === 'map' && <LiveMap multiElder />}
+
+      {selectedElder && section === 'smart' && (
+        <div className="space-y-4">
+          <AIPredictionChart elderId={selectedElder.id} />
+          <PillBoxStatus elderId={selectedElder.id} />
         </div>
       )}
     </Layout>

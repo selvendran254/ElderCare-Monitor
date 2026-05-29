@@ -35,6 +35,39 @@ cd client && npm install && npm run dev
 11. **Family portal** — read-only health view for relatives
 12. **Full i18n** — Tamil/English toggle on all dashboards
 
+## Premium Features (1–10)
+
+| # | Feature | Description |
+|---|---------|-------------|
+| 1 | **Tamil Voice Assistant** | Speech-to-text vitals logging in Tamil/English |
+| 2 | **WhatsApp Alerts** | Send health alerts via WhatsApp (Twilio mock) |
+| 3 | **Fall Detection AI** | Device motion / accelerometer fall detection |
+| 4 | **Live GPS Map** | Real-time elder location on OpenStreetMap (Leaflet) |
+| 5 | **Telemedicine Video** | Jitsi Meet video consultations |
+| 6 | **React Native Mobile App** | Expo app in `/mobile` — GPS, fall, SOS |
+| 7 | **AI Health Prediction** | 7-day risk forecast from vitals/activity/meds |
+| 8 | **Smart Pill Box IoT** | Compartment tracking with missed-dose alerts |
+| 9 | **Blockchain Records** | SHA-256 tamper-proof health record chain |
+| 10 | **Govt Hospital Integration** | ABDM mock sync with TN govt hospitals |
+
+### Premium API
+
+- `/api/features/voice/:elderId` — Voice assistant
+- `/api/features/whatsapp/:elderId` — WhatsApp alerts
+- `/api/features/fall/:elderId` — Fall detection
+- `/api/features/gps/:elderId` — GPS tracking
+- `/api/features/video/:elderId` — Telemedicine sessions
+- `/api/features/ai-prediction/:elderId` — AI risk prediction
+- `/api/features/pillbox/:elderId` — Smart pill box
+- `/api/features/blockchain/:elderId` — Blockchain records
+- `/api/features/hospitals/*` — Hospital integration
+
+### Mobile App
+
+```bash
+cd mobile && npm install && npx expo start
+```
+
 ## API Endpoints
 
 - `/api/admin/*` — Admin panel (stats, users, assignments, audit, alert rules)
