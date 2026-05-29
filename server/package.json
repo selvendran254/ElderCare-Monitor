@@ -1,0 +1,32 @@
+{
+  "name": "eldercare-monitor-server",
+  "version": "1.0.0",
+  "description": "ElderCare Monitor API",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js",
+    "migrate": "knex migrate:latest",
+    "migrate:rollback": "knex migrate:rollback",
+    "seed": "knex seed:run"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "express-validator": "^7.2.0",
+    "jsonwebtoken": "^9.0.2",
+    "knex": "^3.1.0",
+    "node-cron": "^3.0.3",
+    "nodemailer": "^6.9.15",
+    "pdfkit": "^0.15.0",
+    "pg": "^8.13.0",
+    "redis": "^4.7.0",
+    "socket.io": "^4.8.0",
+    "web-push": "^3.6.7"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.7"
+  }
+}
